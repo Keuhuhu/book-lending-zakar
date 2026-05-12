@@ -43,9 +43,9 @@
             </div>
 
             <div class="flex flex-col items-center justify-start">
-                @if($borrowing->qr_code)
-                    <div class="bg-white p-4 rounded-2xl shadow-md">
-                        <img src="{{ asset($borrowing->qr_code) }}" class="w-48 h-48">
+                @if(in_array($borrowing->status, ['approved', 'borrowed']))
+                    <div class="bg-white p-4 rounded-2xl shadow-md flex justify-center">
+                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(192)->margin(1)->generate(route('admin.borrowings.show', $borrowing)) !!}
                     </div>
                     <p class="text-xs text-gray-400 mt-2 text-center">QR Code Peminjaman</p>
                 @endif

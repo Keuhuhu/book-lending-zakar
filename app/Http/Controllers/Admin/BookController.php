@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\StockLog;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Cloudinary\Cloudinary;
 
 class BookController extends Controller
 {
@@ -38,9 +39,17 @@ class BookController extends Controller
             'cover_image'   => 'nullable|image|max:2048',
         ]);
 
+        // --- UBAH BAGIAN INI UNTUK CLOUDINARY ---
         if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')
-                ->store('covers', 'public');
+            $cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
+            
+            $uploadResult = $cloudinary->uploadApi()->upload(
+                $request->file('cover_image')->getRealPath(), 
+                ['folder' => 'covers']
+            );
+            
+            // Simpan link HTTPS dari gambar ke database
+            $data['cover_image'] = $uploadResult['secure_url'];
         }
 
         $book = Book::create($data);
@@ -77,9 +86,17 @@ class BookController extends Controller
             'cover_image'   => 'nullable|image|max:2048',
         ]);
 
+        // --- UBAH BAGIAN INI UNTUK CLOUDINARY ---
         if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')
-                ->store('covers', 'public');
+            $cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
+            
+            $uploadResult = $cloudinary->uploadApi()->upload(
+                $request->file('cover_image')->getRealPath(), 
+                ['folder' => 'covers']
+            );
+            
+            // Timpa data cover_image dengan link HTTPS yang baru
+            $data['cover_image'] = $uploadResult['secure_url'];
         }
 
         $book->update($data);

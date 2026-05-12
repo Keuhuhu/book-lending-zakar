@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Cloudinary\Cloudinary;
 
 class BorrowingController extends Controller
 {
@@ -34,30 +35,12 @@ class BorrowingController extends Controller
 
     public function approve(Borrowing $borrowing)
     {
-        // Buat folder qrcodes di public jika belum ada
-        $qrDir = public_path('qrcodes');
-        if (!file_exists($qrDir)) {
-            mkdir($qrDir, 0755, true);
-        }
-
-        // Generate QR Code sebagai PNG
-        $qrFilename = 'qr-' . $borrowing->id . '.svg'; 
-        $qrPath     = $qrDir . '/' . $qrFilename;
-
-        QrCode::format('svg')
-            ->size(300)
-            ->margin(2)
-            ->generate(
-                route('admin.borrowings.show', $borrowing),
-                $qrPath
-        );
-
+        // Cukup ubah statusnya saja, tidak perlu buat file QR
         $borrowing->update([
-            'status'  => 'approved',
-            'qr_code' => 'qrcodes/' . $qrFilename,
+            'status' => 'approved',
         ]);
 
-        return back()->with('success', 'Peminjaman disetujui dan QR Code telah dibuat.');
+        return back()->with('success', 'Peminjaman disetujui.');
     }
 
     public function reject(Borrowing $borrowing)
