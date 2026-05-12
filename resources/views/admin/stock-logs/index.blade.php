@@ -17,7 +17,7 @@
         <tbody class="divide-y dark:divide-gray-700">
             @forelse($logs as $log)
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                <td class="px-6 py-4 font-medium dark:text-white">{{ $log->book->title }}</td>
+                <td class="px-6 py-4 font-medium dark:text-white">{{ $log->book?->title ?? 'Buku Telah Dihapus' }}</td>
                 <td class="px-6 py-4">
                     @php $typeColors = ['in'=>'bg-green-100 text-green-600','out'=>'bg-red-100 text-red-600','adjustment'=>'bg-yellow-100 text-yellow-600']; @endphp
                     <span class="px-2 py-1 rounded-full text-xs font-semibold {{ $typeColors[$log->type] ?? 'bg-gray-100' }}">
