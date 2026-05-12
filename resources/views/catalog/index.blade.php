@@ -49,7 +49,7 @@
                 <a href="{{ route('catalog.show', $book) }}">
                     <div class="h-56 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center overflow-hidden">
                         @if($book->cover_image)
-                            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <img src="{{ str_starts_with($book->cover_image, 'http') ? $book->cover_image : asset('storage/'.$book->cover_image) }}" alt="{{ $book->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
                             <i class="fas fa-book text-4xl text-indigo-300"></i>
                         @endif

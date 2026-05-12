@@ -8,7 +8,7 @@
             {{-- Cover --}}
             <div class="md:w-64 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center p-8 min-h-64">
                 @if($book->cover_image)
-                    <img src="{{ asset('storage/'.$book->cover_image) }}" class="max-h-64 rounded-xl shadow-md">
+                    <img src="{{ str_starts_with($book->cover_image, 'http') ? $book->cover_image : asset('storage/'.$book->cover_image) }}" class="max-h-64 rounded-xl shadow-md">
                 @else
                     <i class="fas fa-book text-6xl text-indigo-300"></i>
                 @endif
