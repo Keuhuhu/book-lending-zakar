@@ -68,11 +68,11 @@
 
             {{-- QR Code --}}
             <div class="flex flex-col items-center justify-center">
-                @if($borrowing->qr_code)
-                    <div class="bg-white p-4 rounded-2xl shadow-md">
-                        <img src="{{ asset($borrowing->qr_code) }}" alt="QR Code" class="w-48 h-48">
+                @if(in_array($borrowing->status, ['approved', 'borrowed']))
+                    <div class="bg-white p-4 rounded-2xl shadow-md flex justify-center">
+                        {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(192)->margin(1)->generate(route('admin.borrowings.show', $borrowing)) !!}
                     </div>
-                    <p class="text-sm text-gray-400 mt-3 text-center">Tunjukkan QR Code ini saat mengambil buku</p>
+                    <p class="text-sm text-gray-400 mt-3 text-center">Tunjukkan QR Code ini kepada Admin saat mengambil buku</p>
                 @else
                     <div class="text-center text-gray-400">
                         <i class="fas fa-qrcode text-6xl mb-3"></i>

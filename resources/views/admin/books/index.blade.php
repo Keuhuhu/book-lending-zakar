@@ -28,7 +28,7 @@
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-12 bg-indigo-50 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
                             @if($book->cover_image)
-                                <img src="{{ asset('storage/'.$book->cover_image) }}" class="w-full h-full object-cover rounded-lg">
+                                <img src="{{ str_starts_with($book->cover_image, 'http') ? $book->cover_image : asset('storage/'.$book->cover_image) }}" class="w-full h-full object-cover rounded-lg">
                             @else
                                 <i class="fas fa-book text-indigo-300"></i>
                             @endif

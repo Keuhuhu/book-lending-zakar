@@ -54,7 +54,7 @@
                 <div class="col-span-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cover Buku</label>
                     @if($book->cover_image)
-                        <img src="{{ asset('storage/'.$book->cover_image) }}" class="h-24 rounded-xl mb-2">
+                        <img src="{{ str_starts_with($book->cover_image, 'http') ? $book->cover_image : asset('storage/'.$book->cover_image) }}" class="h-24 rounded-xl mb-2">
                     @endif
                     <input type="file" name="cover_image" accept="image/*"
                         class="w-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2.5">
