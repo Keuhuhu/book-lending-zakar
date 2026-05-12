@@ -18,7 +18,7 @@
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 flex items-center gap-4">
                     <div class="w-16 h-20 bg-indigo-50 dark:bg-gray-700 rounded-xl flex items-center justify-center flex-shrink-0">
                         @if($cart->book->cover_image)
-                            <img src="{{ str_starts_with($book->cover_image, 'http') ? $book->cover_image : asset('storage/'.$cart->book->cover_image) }}" class="w-full h-full object-cover rounded-xl">
+                            <img src="{{ str_starts_with($cart->book->cover_image, 'http') ? $book->cover_image : asset('storage/'.$cart->book->cover_image) }}" class="w-full h-full object-cover rounded-xl">
                         @else
                             <i class="fas fa-book text-2xl text-indigo-300"></i>
                         @endif
